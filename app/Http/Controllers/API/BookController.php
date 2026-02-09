@@ -21,14 +21,16 @@ class BookController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        return Book::create([
-            "title" => "Rimka",
-            "author" => "Karim",
-            "summary" => "Pourquoi faire du sport de combat ?",
-            "isbn" => "9787234567890",
-        ]);
-    }
+{
+    $book = Book::create([
+        "title" => "Rimka",
+        "author" => "Karim",
+        "summary" => "Pourquoi faire du sport de combat ?",
+        "isbn" => "9787234567890",
+    ]);
+
+    return new BookResource($book);
+}
 
     /**
      * Display the specified resource.
@@ -49,7 +51,7 @@ class BookController extends Controller
             'title' => $book->title . '_Update'
         ]);
 
-        return response()->json($book, 200);
+       return new BookResource($book);
     }
 
     /**
@@ -61,6 +63,6 @@ class BookController extends Controller
 
         $book->delete();
 
-        return response()->json("Suppression effectuée", 200);
+        return response()->noContent();
     }
 }
