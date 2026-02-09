@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/ping', function () {
     return response()->json([
-        'message' => new BookResource(Book::all()),
+        'message' => BookResource::collection(Book::all()),
     ]);
 });
 
