@@ -15,8 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-
-
+ 
         return BookResource::collection(
             Book::paginate(2) //Mise en place de la paginations
         );
@@ -44,7 +43,7 @@ class BookController extends Controller
     public function show(string $id)
     {
         // Mise en place de la mise en cache
-        return Cache::remember("book-{$id}", 60, function () use ($id) {
+        return Cache::remember("book-{$id}", 3600, function () use ($id) {
 
             $book = Book::findOrFail($id);
 
