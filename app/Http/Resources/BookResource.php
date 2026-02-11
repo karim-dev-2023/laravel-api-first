@@ -13,12 +13,21 @@ class BookResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-    {
-         return [
-            'title' => $this->title,
-            'author' => strtoupper($this->author),
-            'summary' => $this->summary,
-            'isbn' => $this->isbn,
-        ];
-    }
+{
+    return [
+        'id' => $this->id,
+        'title' => $this->title,
+        'author' => strtoupper($this->author),
+        'summary' => $this->summary,
+        'isbn' => $this->isbn,
+
+        '_links' => [
+            'self' => route('books.detail', $this->id),
+            'update' => route('books.update', $this->id),
+            'delete' => route('books.remove', $this->id),
+            'all' => route('books.list'),
+        ],
+    ];
+}
+
 }

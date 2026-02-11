@@ -15,12 +15,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/books', [BookController::class, 'store']);
 
-    Route::match(['put', 'patch'], '/books/{book}', [BookController::class, 'update']);
+    Route::match(['put', 'patch'], '/books/{book}', [BookController::class, 'update'])->name('books.update');
 
-    Route::delete('/books/{book}', [BookController::class, 'destroy']);
+    Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.remove');
 });
 
 
 
-Route::get('/books', [BookController::class, 'index']);
-Route::get('/books/{book}', [BookController::class, 'show']);
+Route::get('/books', [BookController::class, 'index'])->name('books.list');
+Route::get('/books/{book}', [BookController::class, 'show'])->name('books.detail');
