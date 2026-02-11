@@ -5,11 +5,12 @@ use App\Http\Controllers\API\BookController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
+// Limitation du nb de requete de 10 par minutes
+Route::post('/login', [UserController::class, 'login'])->middleware('throttle:5,1');
+
 
 // Accéder uniquement si l'utilisateur est authentifié
-// Limitation du nb de requete de 10 par minutes
-Route::middleware('auth:sanctum','throttle:10,1')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
 
     Route::post('/books', [BookController::class, 'store']);
@@ -20,6 +21,6 @@ Route::middleware('auth:sanctum','throttle:10,1')->group(function () {
 });
 
 
- 
+
 Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/{book}', [BookController::class, 'show']);

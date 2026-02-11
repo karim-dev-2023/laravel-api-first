@@ -15,12 +15,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        // Mise en place de la mise en cache
-        return Cache::remember('books-list', 60, function () {
-            return BookResource::collection(
-                Book::paginate(2) //Mise en place de la paginations
-            );
-        });
+
+
+        return BookResource::collection(
+            Book::paginate(2) //Mise en place de la paginations
+        );
     }
 
 
@@ -44,8 +43,15 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        return new BookResource(Book::find($id));
+        // Mise en place de la mise en cache
+        return Cache::remember("book-{$id}", 60, function () use ($id) {
+
+            $book = Book::findOrFail($id);
+
+            return new BookResource($book);
+        });
     }
+
 
     /**
      * Update the specified resource in storage.
