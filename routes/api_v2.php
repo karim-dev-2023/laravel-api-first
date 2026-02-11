@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+// Accéder uniquement si l'utilisateur est authentifié
+// Limitation du nb de requete de 10 par minutes
+Route::middleware('auth:sanctum','throttle:10,1')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
 
     Route::post('/books', [BookController::class, 'store']);

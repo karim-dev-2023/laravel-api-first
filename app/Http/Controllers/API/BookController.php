@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BookController extends Controller
 {
@@ -14,23 +15,29 @@ class BookController extends Controller
      */
     public function index()
     {
-        return BookResource::collection(Book::all());
+        // Mise en place de la mise en cache
+        return Cache::remember('books-list', 60, function () {
+            return BookResource::collection(
+                Book::paginate(2) //Mise en place de la paginations
+            );
+        });
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $book = Book::create([
-        "title" => "Rimka",
-        "author" => "Karim",
-        "summary" => "Pourquoi faire du sport de combat ?",
-        "isbn" => "9787234567890",
-    ]);
+    {
+        $book = Book::create([
+            "title" => "Rimka",
+            "author" => "Karim",
+            "summary" => "Pourquoi faire du sport de combat ?",
+            "isbn" => "9787234567890",
+        ]);
 
-    return new BookResource($book);
-}
+        return new BookResource($book);
+    }
 
     /**
      * Display the specified resource.
@@ -51,7 +58,7 @@ class BookController extends Controller
             'title' => $book->title . '_Update'
         ]);
 
-       return new BookResource($book);
+        return new BookResource($book);
     }
 
     /**
