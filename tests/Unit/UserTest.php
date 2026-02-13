@@ -5,7 +5,7 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
 
-    public function testTrue()
+    public function test_true()
     {
 
         $user = new User();
@@ -16,7 +16,7 @@ class UserTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testFalse()
+    public function test_false()
     {
 
         $user = new User();
@@ -26,7 +26,5 @@ class UserTest extends TestCase
 
         $this->assertFalse($result);
     }
-
-
-
+ 
 }
