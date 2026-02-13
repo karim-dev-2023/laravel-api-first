@@ -1,25 +1,32 @@
 <?php
 use App\Models\User;
+use Tests\TestCase;
 
-test('Vérification mail pro renvoie vrai', function () {
-    
-    $user = new User();
-    $user->email = 'john@entreprise.com';
- 
-    $result = $user->usesProfessionalEmail();
- 
-    $this->assertTrue($result); 
-});
+class UserTest extends TestCase
+{
 
-test('Vérification mail pro renvoie faux', function () {
-    
-    $user = new User();
-    $user->email = 'john@gmail.com';
- 
-    $result = $user->usesProfessionalEmail();
- 
-    $this->assertFalse($result); 
-});
+    public function testTrue()
+    {
+
+        $user = new User();
+        $user->email = 'john@entreprise.com';
+
+        $result = $user->usesProfessionalEmail();
+
+        $this->assertTrue($result);
+    }
+
+    public function testFalse()
+    {
+
+        $user = new User();
+        $user->email = 'john@gmail.com';
+
+        $result = $user->usesProfessionalEmail();
+
+        $this->assertFalse($result);
+    }
 
 
 
+}
