@@ -4,6 +4,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\BookController;
 use Illuminate\Support\Facades\Route;
 
+  
 Route::post('/register', [UserController::class, 'register']);
 // Limitation du nb de requete de 10 par minutes
 Route::post('/login', [UserController::class, 'login'])->middleware('throttle:5,1');

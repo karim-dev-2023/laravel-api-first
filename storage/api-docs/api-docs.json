@@ -1,0 +1,436 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API",
+        "description": "Documentation de l'API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v2/books": {
+            "get": {
+                "description": "Liste des livres paginée",
+                "operationId": "588131794d79df834937cc2c6aa6bb0e",
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    },
+                    "404": {
+                        "description": "Aucun livre trouvé"
+                    }
+                }
+            },
+            "post": {
+                "description": "Création d'un livre",
+                "operationId": "7dcdb5f1b31a937ba9f66593dc2206c0",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token Bearer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer 1|eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "author",
+                                    "summary",
+                                    "isbn"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Livre créé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "title": "Rimka",
+                                        "author": "Karim",
+                                        "summary": "Pourquoi faire du sport de combat ?",
+                                        "isbn": "9787234567890"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Erreur interne du serveur"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/books/{id}": {
+            "get": {
+                "description": "Informations d'un livre",
+                "operationId": "6701b47d3a128a09e587057356d99909",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token Bearer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer 1|eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Livre trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "data": {
+                                        "title": "Rimka_Update_Update_Update_Update",
+                                        "author": "KARIM",
+                                        "summary": "Pourquoi faire du sport de combat ?",
+                                        "isbn": "9787234567890",
+                                        "_links": {
+                                            "self": "http://localhost:8000/api/v2/books/12",
+                                            "update": "http://localhost:8000/api/v2/books/12",
+                                            "delete": "http://localhost:8000/api/v2/books/12",
+                                            "all": "http://localhost:8000/api/v2/books"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Livre introuvable"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Mise à jour d'un livre",
+                "operationId": "4bf199e245489d2d759b7b9e917df92b",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token Bearer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer 1|eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre a mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 12
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mise à jour réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "title": "Rimka_Update_Update_Update",
+                                    "author": "KARIM",
+                                    "summary": "Pourquoi faire du sport de combat ?",
+                                    "isbn": "9787234567890",
+                                    "_links": {
+                                        "self": "http://localhost:8000/api/v2/books/12",
+                                        "update": "http://localhost:8000/api/v2/books/12",
+                                        "delete": "http://localhost:8000/api/v2/books/12",
+                                        "all": "http://localhost:8000/api/v2/books"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Livre introuvable"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Suppression d'un livre",
+                "operationId": "7e87404adb38888c3b1f91f783669515",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token Bearer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 12
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Livre supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Livre introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Livre introuvable"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Erreur interne du serveur"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/register": {
+            "post": {
+                "description": "Création d'un utilisateur",
+                "operationId": "0c49b719e9ef70b042afe421a7260094",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créer créé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "name": "Rimka",
+                                    "email": "Karim@mail.com",
+                                    "password": "9787234567890"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Erreur interne du serveur"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/login": {
+            "post": {
+                "description": "Connexion utilisateur",
+                "operationId": "ba14f1994645e516d58d1f10786d4792",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Identifiants ou mot de passes invalides",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Identifiants invalides"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Utilisateur Connecté",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "email": "Karim@mail.com",
+                                    "password": "9787234567890"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/logout": {
+            "post": {
+                "description": "Déconnexion utilisateur",
+                "operationId": "f91e60925b387bff1ecfb529f5d5da29",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token Bearer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer 1|eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Déconnexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Déconnexion réussie"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Unauthenticated."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Erreur interne du serveur"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
